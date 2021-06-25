@@ -2,7 +2,7 @@
 Create pgm map from Gazebo world file for ROS localization
 
 ## Environment
-Tested on Ubuntu 20.04, ROS Noetic, Boost 1.71
+Tested on Ubuntu 18.04, ROS Melodic, Boost 1.65
 
 ## Usage
 
