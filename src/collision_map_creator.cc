@@ -1,8 +1,9 @@
+#define int_p_NULL (int*)NULL
 #include <fstream>
 #include <iostream>
 #include <math.h>
-#include <boost/gil/gil_all.hpp>
-#include <boost/gil/extension/io/png_dynamic_io.hpp>
+#include <boost/gil.hpp>
+#include <boost/gil/extension/io/png.hpp>
 #include <boost/shared_ptr.hpp>
 #include <sdf/sdf.hh>
 #include <ignition/math/Vector3.hh>
@@ -32,7 +33,7 @@ class CollisionMapCreator : public WorldPlugin
     node = transport::NodePtr(new transport::Node());
     world = _parent;
     // Initialize the node with the world name
-    node->Init(world->GetName());
+    node->Init(world->Name());
     std::cout << "Subscribing to: " << "~/collision_map/command" << std::endl;
     commandSubscriber = node->Subscribe("~/collision_map/command",
       &CollisionMapCreator::create, this);
@@ -86,9 +87,9 @@ class CollisionMapCreator : public WorldPlugin
     std::string entityName;
     ignition::math::Vector3d start, end;
     start.Z(msg->height());
-    end.Z(0.001);
+    end.Z(0.15);
 
-    gazebo::physics::PhysicsEnginePtr engine = world->GetPhysicsEngine();
+    gazebo::physics::PhysicsEnginePtr engine = world->Physics();
     engine->InitForThread();
     gazebo::physics::RayShapePtr ray =
       boost::dynamic_pointer_cast<gazebo::physics::RayShape>(
